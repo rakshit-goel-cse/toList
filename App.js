@@ -4,6 +4,9 @@ import { SafeAreaProvider,SafeAreaView } from 'react-native-safe-area-context';
 import logo from './assets/logo.png';
 import { CardToDo } from './cardToDo';
 import { useState } from 'react';
+import {Footer} from './Footer';
+import constants from './constants';
+
 export default function App() {
 
   const [data,setData]=useState([
@@ -25,6 +28,21 @@ export default function App() {
     setData(tempData);
   }
 
+  const [selected,setSelected]=useState(constants.all);
+
+  const getFilterData=()=>{
+    switch(selected){
+      case constants.all:
+        return data;
+      case constants.in_progress:
+        return data.filter((todo)=>!todo.isDone);
+      case constants.done:
+        return data.filter((todo)=>todo.isDone);
+      default:
+        return data;
+    }
+  }
+
   return (
     <View style={s.mainPage}>
     <SafeAreaProvider>
@@ -35,10 +53,12 @@ export default function App() {
         </View>
         <View style={s.body}>
           <ScrollView>
-          {data.map((item)=>{return(<CardToDo key={item.id} todo={item} updateToDo={updateToDo}/>)})}
+          {getFilterData().map((item)=>{return(<CardToDo key={item.id} todo={item} updateToDo={updateToDo}/>)})}
           </ScrollView>
         </View>
-        <Text style={s.footer}>footer</Text>
+        <View style={s.footer}>
+          <Footer selected={selected} setSelected={setSelected} data={data}/>
+        </View>
       </SafeAreaView>
     </SafeAreaProvider>
     </View>
