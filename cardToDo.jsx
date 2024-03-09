@@ -10,7 +10,6 @@ export function CardToDo({ todo, updateToDo, deleteToDo }) {
   };
 
   const completeTodoAlert = () => {
-    //console.log("comp");
     Alert.alert("ToDo Description", todo.description, [
       { text: "Cancel", style: "cancel" },
       {

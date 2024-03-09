@@ -9,7 +9,9 @@ import constants from "./constants";
 import { Addtodo } from "./Addtodo";
 
 export default function App() {
-  const [data, setData] = useState([
+  const [data, setData] = useState([]);
+
+  /*const [data, setData] = useState([
     {
       id: 1,
       title: "First Title",
@@ -54,7 +56,7 @@ export default function App() {
       isDone: false,
       description: "Description 1",
     },
-  ]);
+  ]);*/
 
   const updateToDo = (todo) => {
     let tempData = [...data];
@@ -68,15 +70,26 @@ export default function App() {
   };
 
   const addTodo = (title, desc) => {
-    setData((prevData) => [
-      ...prevData,
-      {
-        id: 1 + prevData[prevData.length - 1].id,
-        title: title,
-        isDone: false,
-        description: desc,
-      },
-    ]);
+    if (data.length == 0) {
+      setData([
+        {
+          id: 1,
+          title: title,
+          isDone: false,
+          description: desc,
+        },
+      ]);
+    } else {
+      setData((prevData) => [
+        ...prevData,
+        {
+          id: 1 + prevData[prevData.length - 1].id,
+          title: title,
+          isDone: false,
+          description: desc,
+        },
+      ]);
+    }
   };
 
   const [selected, setSelected] = useState(constants.all);

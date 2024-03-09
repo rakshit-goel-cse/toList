@@ -11,7 +11,6 @@ export const Addtodo = ({ addTodo }) => {
   const ref = useRef(null);
 
   const addTitle = (temp) => {
-    console.log(temp === " " && title === "");
     temp === " " && title === "" ? "" : setTitle(temp);
   };
 
