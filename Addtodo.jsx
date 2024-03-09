@@ -20,8 +20,13 @@ export const Addtodo = ({ addTodo }) => {
       ? (addTodo(title, description),
         setTitle(""),
         setDescription(""),
-        setShowDia(false))
+        setShowDia(false),
+        setTitleNull(false))
       : (setTitleNull(true), ref.current.focus());
+  };
+
+  const pressCancel = () => {
+    setShowDia(false), setTitle(""), setDescription(""), setTitleNull(false);
   };
 
   return (
@@ -47,7 +52,7 @@ export const Addtodo = ({ addTodo }) => {
           label="Description"
           onChange={(temp) => setDescription(temp.nativeEvent.text)}
         />
-        <Dialog.Button label="Cancel" onPress={() => setShowDia(false)} />
+        <Dialog.Button label="Cancel" onPress={() => pressCancel()} />
         <Dialog.Button label="Add" onPress={() => pressAdd()} />
       </Dialog.Container>
 
