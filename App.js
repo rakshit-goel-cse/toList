@@ -1,16 +1,22 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { s } from "./App-style";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import logo from "./assets/logo.png";
 import { CardToDo } from "./cardToDo";
-import { useState } from "react";
 import { Footer } from "./Footer";
 import constants from "./constants";
 import { Addtodo } from "./Addtodo";
 
+let firstRender = true;
+let firstUpdate = true;
+let key = "ToDoStorageKey";
+
 export default function App() {
   const [data, setData] = useState([]);
-
+  const [selected, setSelected] = useState(constants.all);
+  const scrollRef = useRef();
   /*const [data, setData] = useState([
     {
       id: 1,
@@ -58,6 +64,35 @@ export default function App() {
     },
   ]);*/
 
+  //getDatafromStorage
+  const getDatafromStorage = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(key);
+      jsonValue ? setData(JSON.parse(jsonValue)) : "";
+    } catch (error) {
+      Alert.alert(error);
+    }
+    firstUpdate = false;
+  };
+
+  useEffect(() => {
+    getDatafromStorage();
+  }, []);
+
+  //setDataToStorage
+  const setDataToStorage = async () => {
+    if (!firstRender && !firstUpdate) {
+      try {
+        await AsyncStorage.setItem(key, JSON.stringify(data));
+      } catch (error) {
+        Alert.alert(error);
+      }
+    } else firstRender = false;
+  };
+  useEffect(() => {
+    setDataToStorage();
+  }, [data]);
+
   const updateToDo = (todo) => {
     let tempData = [...data];
     let index = tempData.findIndex((t) => t.id == todo.id);
@@ -90,9 +125,13 @@ export default function App() {
         },
       ]);
     }
+    if(selected!==constants.all){
+      setSelected(constants.all);
+    }
+    setTimeout(() => {
+      scrollRef.current.scrollToEnd();
+    }, 300);
   };
-
-  const [selected, setSelected] = useState(constants.all);
 
   const getFilterData = () => {
     switch (selected) {
@@ -116,7 +155,7 @@ export default function App() {
             <Text style={s.headerText}>You have something to do</Text>
           </View>
           <View style={s.body}>
-            <ScrollView>
+            <ScrollView ref={scrollRef}>
               {getFilterData().map((item) => {
                 return (
                   <CardToDo

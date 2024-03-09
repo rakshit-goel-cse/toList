@@ -3,21 +3,35 @@ import click from "./assets/check.png";
 import { s } from "./cardToDo-style";
 export function CardToDo({ todo, updateToDo, deleteToDo }) {
   const deleteTodoAlert = () => {
-    Alert.alert("Delete ToDo", "Are you sure to delete this Todo?", [
-      { text: "Cancel", style: "cancel" },
-      { text: "Delete", style: "destructive", onPress: () => deleteToDo(todo) },
-    ]);
+    Alert.alert(
+      "Delete ToDo",
+      "Are you sure to delete this Todo?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: () => deleteToDo(todo),
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   const completeTodoAlert = () => {
-    Alert.alert("ToDo Description", todo.description, [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: todo.isDone ? "Mark OnGoing" : "Mark Completed",
-        style: "default",
-        onPress: () => updateToDo({ ...todo, isDone: !todo.isDone }),
-      },
-    ]);
+    Alert.alert(
+      "ToDo Description",
+      todo.description,
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: todo.isDone ? "Mark OnGoing" : "Mark Completed",
+          style: "default",
+          onPress: () => updateToDo({ ...todo, isDone: !todo.isDone }),
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   return (

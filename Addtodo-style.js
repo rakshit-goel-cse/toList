@@ -13,5 +13,8 @@ export const s=StyleSheet.create({
     text:{
         color:'white',
         fontWeight:'bold'
+    },
+    dialog:{
+        borderRadius:30,
     }
 })

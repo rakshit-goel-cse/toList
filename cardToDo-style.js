@@ -16,7 +16,7 @@ export const s=StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         paddingHorizontal:10,
-        borderRadius:20,
+        borderRadius:50,
         marginVertical:3,      
     },
     click:{

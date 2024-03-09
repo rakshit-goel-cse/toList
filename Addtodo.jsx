@@ -30,7 +30,12 @@ export const Addtodo = ({ addTodo }) => {
 
   return (
     <>
-      <Dialog.Container style={s.dialog} visible={showDia}>
+      <Dialog.Container
+        style={s.dialog}
+        visible={showDia}
+        onBackdropPress={() => setShowDia(false)}
+        onRequestClose={() => setShowDia(false)}
+      >
         <Dialog.Title>Add Todo</Dialog.Title>
         <Dialog.Description>Add Details to add new todo.</Dialog.Description>
 
@@ -42,13 +47,14 @@ export const Addtodo = ({ addTodo }) => {
         />
 
         {titleNull && (
-          <Dialog.Description style={{ color: "red", fontSize: 8 }}>
+          <Text style={{ color: "red", fontSize: 8, marginTop: -20 }}>
             Title can not be empty
-          </Dialog.Description>
+          </Text>
         )}
 
         <Dialog.Input
           label="Description"
+          value={description}
           onChange={(temp) => setDescription(temp.nativeEvent.text)}
         />
         <Dialog.Button label="Cancel" onPress={() => pressCancel()} />
