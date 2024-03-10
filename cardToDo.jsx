@@ -4,8 +4,9 @@ import deleteImg from "./assets/delete.png";
 import undoImg from "./assets/undo.png";
 import { s } from "./cardToDo-style";
 import Swipeable from 'react-native-swipeable';
+import { Addtodo } from "./Addtodo";
 
-export function CardToDo({ todo, updateToDo, deleteToDo }) {
+export function CardToDo({ todo, updateToDo, deleteToDo, setUpdateToDo }) {
   const deleteTodoAlert = () => {
     Alert.alert(
       "Delete ToDo",
@@ -32,6 +33,11 @@ export function CardToDo({ todo, updateToDo, deleteToDo }) {
           text: todo.isDone ? "Mark OnGoing" : "Mark Completed",
           style: "default",
           onPress: () => updateToDo({ ...todo, isDone: !todo.isDone }),
+        },
+        {
+          text: "Edit ToDo",
+          style: "default",
+          onPress: () => setUpdateToDo(todo),
         },
       ],
       { cancelable: true }

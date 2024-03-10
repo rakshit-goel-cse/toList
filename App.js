@@ -17,6 +17,7 @@ export default function App() {
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState(constants.all);
   const scrollRef = useRef();
+  const [updateToDoState,setUpdateToDo] = useState(null);
   /*const [data, setData] = useState([
     {
       id: 1,
@@ -163,12 +164,13 @@ export default function App() {
                     todo={item}
                     updateToDo={updateToDo}
                     deleteToDo={deleteToDo}
+                    setUpdateToDo={setUpdateToDo}
                   />
                 );
               })}
             </ScrollView>
           </View>
-          <Addtodo addTodo={addTodo} />
+          <Addtodo updateToDo={updateToDoState? updateToDo:null} addTodo={addTodo} todoToUpdate={updateToDoState} setUpdateToDo={setUpdateToDo}  />
           <View style={s.footer}>
             <Footer selected={selected} setSelected={setSelected} data={data} />
           </View>
