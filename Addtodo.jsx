@@ -54,12 +54,13 @@ export const Addtodo = ({ addTodo,updateToDo,todoToUpdate,setUpdateToDo }) => {
         onBackdropPress={() => settingShowDiaFalse()}
         onRequestClose={() => settingShowDiaFalse()}
       >
-        <Dialog.Title style={{color:"black"}}>{todoToUpdate?"Update ToDo":"Add Todo"}</Dialog.Title>
-        <Dialog.Description style={{color:"black"}}>{todoToUpdate?"Update Details Of the ToDo.":"Add Details to add new todo."}</Dialog.Description>
+        <Dialog.Title style={{color:"#3F7FEF"}}>{todoToUpdate?"Update ToDo":"Add Todo"}</Dialog.Title>
+        <Dialog.Description style={{color:"#2F96E5"}}>{todoToUpdate?"Update Details Of the ToDo.":"Add Details to add new todo."}</Dialog.Description>
 
         <Dialog.Input
           textInputRef={ref}
           label="Title"
+          unstableLabelStyle = {{color:'black'}}
           value={title}
           style={{color:"black"}}
           onChange={(event) => addTitle(event.nativeEvent.text)}
@@ -73,6 +74,7 @@ export const Addtodo = ({ addTodo,updateToDo,todoToUpdate,setUpdateToDo }) => {
 
         <Dialog.Input
           label="Description"
+          unstableLabelStyle = {{color:'black'}}
           value={description}
           style={{color:"black"}}
           onChange={(temp) => setDescription(temp.nativeEvent.text)}
